@@ -17,10 +17,8 @@ dataSources:
         - AddCollateral
         - Borrow
         - Liquidate
-        - OwnershipTransferred
         - RemoveCollateral
         - Repay
-        - UpdateAccrue
       abis:
         - name: DeiLenderSolidex
           file: ./abis/DeiLenderSolidex.json
@@ -31,12 +29,8 @@ dataSources:
           handler: handleBorrow
         - event: Liquidate(address,address,uint256,uint256)
           handler: handleLiquidate
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
         - event: RemoveCollateral(address,address,uint256)
           handler: handleRemoveCollateral
         - event: Repay(address,address,uint256,uint256)
           handler: handleRepay
-        - event: UpdateAccrue(uint256)
-          handler: handleUpdateAccrue
       file: ./src/mapping.ts

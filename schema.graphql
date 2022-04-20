@@ -8,7 +8,5 @@ type ExampleEntity @entity {
 type UserPosition @entity {
   id: ID!
   address: Bytes!
-  collateralAmount: BigInt!
-  borrowed: BigInt!
   collateralLiquidationPrice: BigInt!
 }
