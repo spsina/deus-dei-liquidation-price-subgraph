@@ -82,7 +82,7 @@ export class UserPosition extends Entity {
     this.set("address", Value.fromBytes(Bytes.empty()));
     this.set("collateralAmount", Value.fromBigInt(BigInt.zero()));
     this.set("borrowed", Value.fromBigInt(BigInt.zero()));
-    this.set("deusLiquidationPrice", Value.fromBigInt(BigInt.zero()));
+    this.set("collateralLiquidationPrice", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -137,12 +137,12 @@ export class UserPosition extends Entity {
     this.set("borrowed", Value.fromBigInt(value));
   }
 
-  get deusLiquidationPrice(): BigInt {
-    let value = this.get("deusLiquidationPrice");
+  get collateralLiquidationPrice(): BigInt {
+    let value = this.get("collateralLiquidationPrice");
     return value!.toBigInt();
   }
 
-  set deusLiquidationPrice(value: BigInt) {
-    this.set("deusLiquidationPrice", Value.fromBigInt(value));
+  set collateralLiquidationPrice(value: BigInt) {
+    this.set("collateralLiquidationPrice", Value.fromBigInt(value));
   }
 }

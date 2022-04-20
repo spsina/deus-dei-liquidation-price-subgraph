@@ -10,5 +10,5 @@ type UserPosition @entity {
   address: Bytes!
   collateralAmount: BigInt!
   borrowed: BigInt!
-  deusLiquidationPrice: BigInt!
+  collateralLiquidationPrice: BigInt!
 }

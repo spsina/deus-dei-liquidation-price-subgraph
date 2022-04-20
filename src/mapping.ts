@@ -17,13 +17,26 @@ function getOrCreateUserPosition(address: Address): UserPosition {
   return userPosition;
 }
 
-export function handleAddCollateral(event: AddCollateral): void {
-  // this is the address that received the collateral
-  let to = event.params.to;
+function updateLiquidationPrice(
+  userPosition: UserPosition,
+  contract: DeiLenderSolidex,
+  save: bool
+): void {
+  let price = contract.getLiquidationPrice(
+    Address.fromBytes(userPosition.address)
+  );
+  userPosition.collateralLiquidationPrice = price;
+  // if you know you'll save the object later, you can disable saving here
+  if (save) userPosition.save();
+}
 
+export function handleAddCollateral(event: AddCollateral): void {
+  let to = event.params.to; // this is the address that received the collateral
+  let contract = DeiLenderSolidex.bind(event.address);
   let userPosition = getOrCreateUserPosition(to);
   userPosition.address = to;
-  userPosition.collateralAmount += amount;
+  userPosition.collateralAmount += event.params.amount;
+  updateLiquidationPrice(userPosition, contract, false);
   userPosition.save();
 }
 
