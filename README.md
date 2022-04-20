@@ -12,3 +12,10 @@ tracks lending data in DEUS/DEI LP lending pool
   [ ] remove collateral
   [ ] borrow
   [ ] repay
+
+## Entities
+
+### UserPosition
+
+```js
+```

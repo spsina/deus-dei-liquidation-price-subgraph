@@ -73,3 +73,76 @@ export class ExampleEntity extends Entity {
     this.set("to", Value.fromBytes(value));
   }
 }
+
+export class UserPosition extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("address", Value.fromBytes(Bytes.empty()));
+    this.set("collateralAmount", Value.fromBigInt(BigInt.zero()));
+    this.set("borrowed", Value.fromBigInt(BigInt.zero()));
+    this.set("deusLiquidationPrice", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save UserPosition entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type UserPosition must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("UserPosition", id.toString(), this);
+    }
+  }
+
+  static load(id: string): UserPosition | null {
+    return changetype<UserPosition | null>(store.get("UserPosition", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    return value!.toBytes();
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get collateralAmount(): BigInt {
+    let value = this.get("collateralAmount");
+    return value!.toBigInt();
+  }
+
+  set collateralAmount(value: BigInt) {
+    this.set("collateralAmount", Value.fromBigInt(value));
+  }
+
+  get borrowed(): BigInt {
+    let value = this.get("borrowed");
+    return value!.toBigInt();
+  }
+
+  set borrowed(value: BigInt) {
+    this.set("borrowed", Value.fromBigInt(value));
+  }
+
+  get deusLiquidationPrice(): BigInt {
+    let value = this.get("deusLiquidationPrice");
+    return value!.toBigInt();
+  }
+
+  set deusLiquidationPrice(value: BigInt) {
+    this.set("deusLiquidationPrice", Value.fromBigInt(value));
+  }
+}

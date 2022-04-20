@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: DeiLenderSolidex
@@ -23,7 +23,7 @@ dataSources:
         - UpdateAccrue
       abis:
         - name: DeiLenderSolidex
-          file: ./abis/DeiLenderSolidex.json
+          file: DeiLenderSolidex/abis/DeiLenderSolidex.json
       eventHandlers:
         - event: AddCollateral(address,address,uint256)
           handler: handleAddCollateral
@@ -39,4 +39,4 @@ dataSources:
           handler: handleRepay
         - event: UpdateAccrue(uint256)
           handler: handleUpdateAccrue
-      file: ./src/mapping.ts
+      file: DeiLenderSolidex/DeiLenderSolidex.wasm
