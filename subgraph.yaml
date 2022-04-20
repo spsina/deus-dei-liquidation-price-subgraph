@@ -1,0 +1,41 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: DeiLenderSolidex
+    network: fantom
+    source:
+      address: "0x118FF56bb12E5E0EfC14454B8D7Fa6009487D64E"
+      abi: DeiLenderSolidex
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AddCollateral
+        - Borrow
+        - Liquidate
+        - OwnershipTransferred
+        - RemoveCollateral
+        - Repay
+        - UpdateAccrue
+      abis:
+        - name: DeiLenderSolidex
+          file: ./abis/DeiLenderSolidex.json
+      eventHandlers:
+        - event: AddCollateral(address,address,uint256)
+          handler: handleAddCollateral
+        - event: Borrow(address,address,uint256,uint256)
+          handler: handleBorrow
+        - event: Liquidate(address,address,uint256,uint256)
+          handler: handleLiquidate
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RemoveCollateral(address,address,uint256)
+          handler: handleRemoveCollateral
+        - event: Repay(address,address,uint256,uint256)
+          handler: handleRepay
+        - event: UpdateAccrue(uint256)
+          handler: handleUpdateAccrue
+      file: ./src/mapping.ts
