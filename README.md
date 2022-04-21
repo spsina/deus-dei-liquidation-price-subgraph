@@ -4,14 +4,14 @@ tracks lending data in DEUS/DEI LP lending pool
 
 ## what it does
 
-- [ ] create position for a user after initial collateral deposit
+- [x] create position for a user after initial collateral deposit
 
 - update user position after
-  - [ ] swap
+  - [x] swap
   - [x] add more collateral
-  - [ ] remove collateral
-  - [ ] borrow
-  - [ ] repay
+  - [x] remove collateral
+  - [x] borrow
+  - [x] repay
 
 ## Quick start
 
