@@ -9,12 +9,17 @@ import {
   Repay,
   UpdateAccrue,
 } from "../generated/DeiLenderSolidex/DeiLenderSolidex";
-import { ExampleEntity, UserPosition } from "../generated/schema";
+import { DeusPriceForLiquidation } from "../generated/DeiLenderSolidex/DeusPriceForLiquidation";
+import { UserPosition } from "../generated/schema";
+
+const lenderAddress = "0x118FF56bb12E5E0EfC14454B8D7Fa6009487D64E";
+const deusLiqPriceAddress = "0xF1A8165893CC8Da012344B51feB4de0044dDD4E6";
 
 function getOrCreateUserPosition(address: Address): UserPosition {
   let userPosition = UserPosition.load(address.toHex());
   if (!userPosition) userPosition = new UserPosition(address.toHex());
   userPosition.address = address;
+  userPosition.save();
   return userPosition;
 }
 
@@ -25,12 +30,24 @@ function updateLiquidationPrice(
 ): void {
   let userPosition = UserPosition.load(userId);
   if (!userPosition) return;
-  let contract = DeiLenderSolidex.bind(contractAddress);
-  let price = contract.getLiquidationPrice(
+  let collateralLiquidationPriceContract = DeiLenderSolidex.bind(
+    contractAddress
+  );
+  let deusLiqPriceContract = DeusPriceForLiquidation.bind(
+    Address.fromString(deusLiqPriceAddress)
+  );
+
+  let collatPrice = collateralLiquidationPriceContract.getLiquidationPrice(
     Address.fromBytes(userPosition.address)
   );
-  userPosition.collateralLiquidationPrice = price;
-  // todo: calculate deus liquidation price
+  let deusPrice = deusLiqPriceContract.deusPriceForLiquidation(
+    Address.fromString(lenderAddress),
+    Address.fromBytes(userPosition.address),
+    BigInt.fromI32(1000)
+  );
+
+  userPosition.collateralLiquidationPrice = collatPrice;
+  userPosition.deusLiquidationPrice = deusPrice;
 
   // if you know you'll save the object later, you can disable saving here
   if (save) userPosition.save();

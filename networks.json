@@ -2,6 +2,9 @@
   "fantom": {
     "DeiLenderSolidex": {
       "address": "0x118FF56bb12E5E0EfC14454B8D7Fa6009487D64E"
+    },
+    "DeusPriceForLiquidation": {
+      "address": "0xF1A8165893CC8Da012344B51feB4de0044dDD4E6"
     }
   }
 }
